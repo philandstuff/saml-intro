@@ -1,0 +1,80 @@
+* skeleton outline (copied from google doc)
+** what was the thing?                                                 :PHIL:
+   - intro:
+     - GOV.UK Verify as starting point
+       - screenshots?
+     - then extend to organizations?
+   - team:
+     - roughly split between user research & architecture research
+   - [[https://www.gov.uk/service-manual/phases/alpha.html][alpha]]
+     - service manual
+     - purpose:
+       - can we build something that users will want to use?
+       - test design approaches
+         - will users want to use it?
+       - test technology
+         - can we build it?
+       - gain shared understanding of the service at an architectural
+         level
+       - understand what or who you will need to build a beta
+         - find out:
+           - do we need to build something?
+           - what would the architecture look like?
+       - keep user research honest
+     - copied from blog:
+       - what do users need when they’re accessing a digital service on
+         behalf of an organisation?
+       - is there a generic need across government for a way for people
+         to prove, using digital means, that they have authority to do a
+         specific thing on behalf of an organisation?
+       - can the needs be met from existing solutions in the market, or
+         is there a need to build something new?
+       - if we were to build something new, should it be a
+         cross-government service like GOV.UK Verify?
+       - how can someone prove, entirely digitally, that an organisation
+         exists and they have authority to act on its behalf?
+** why clojure?                                                        :PHIL:
+   - GOV.UK Verify is already on the JVM
+     - Java
+   - two key technologies: SAML & OpenID Connect, are xml and json
+     based respectively
+   - hitchhiking antipattern
+     - http://overwatering.org/blog/2014/11/the-hitchhiking-anti-pattern/
+** how did we get on with clojure?
+*** for the first time?                                              :RACHEL:
+*** for your day job?                                                  :PHIL:
+    - worry: using a language for a hobby is not the same as using it
+      for your day job
+      - it's not a fair comparison
+        - no legacy code
+        - can chase new shiny all the time
+        - if something doesn't work in a side project, can just give
+          up and look at something else instead
+        - side projects are small and so can't grow unwieldy
+      - this is true for most new technology
+    - worries: generally unfounded
+      - a joy to work with
+      - learned some of clojure's weaker points
+      - 
+** what went well?
+*** reloaded                                                         :RACHEL:
+*** kerodon & peridot                                                  :PHIL:
+    - these were a joy to use
+    - vhosting at the ring handler level made this project much easier
+      to write coherent tests for
+    - issues fixed:
+      - https://github.com/xeqi/kerodon/pull/25
+      - https://github.com/xeqi/peridot/issues/17
+*** inserting or removing the orchestration                          :RACHEL:
+** what didn't go so well?                                             :PHIL:
+   - enlive
+   - stubbing
+     - http://blog.josephwilk.net/clojure/isolating-external-dependencies-in-clojure.html
+** was it a success?                                                 :RACHEL:
+** what would we change if we did it again?                          :RACHEL:
+* parking lot of ideas
+** links
+   - verify blog https://identityassurance.blog.gov.uk/
+     - especially https://identityassurance.blog.gov.uk/2014/10/20/identity-assurance-for-organisations-and-agents/
+   - service manual
+   - 
