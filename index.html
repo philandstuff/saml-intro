@@ -100,12 +100,10 @@
                 <h2>how was it using clojure for the first time?</h2>
                 <h3>for someone who had never used it before?</h3>
                  <aside class="notes">
-                    <ul>
-                        <li>Background - java, some scala, racket</li>
-                        <li>no time to learn clojure first</li>
-                        <li>found it easy to pick up</li>
-                        <li>concise and simple</li>
-                    </ul>
+                    Background - java, some scala, racket
+                    no time to learn clojure first
+                    found it easy to pick up
+                    concise and simple
                 </aside>
             </section>
             <section>
@@ -120,67 +118,59 @@
                     (say-hello request)))))
                 </code></pre></h1>
                  <aside class="notes">
-                    <ul>
-                        <li>http request and response are maps, so once you know what you can do with a map</li>
-                        <li>not much code</li>
-                        <li>easy to read, debug</li>
-                        <li>very different to scala</li>
-                        <li>in clojure extra features are put into different libraries</li>
-                        <li>with their own docs</li>
-                        <li>in scala everything is put into the language</li>
-                        <li>this confuses me</li>
-                        <li>means there are many different ways to do things</li>
-                    </ul>
+                    http request and response are maps, so once you know what you can do with a map
+                    not much code
+                    easy to read, debug
+                    very different to scala
+                    in clojure extra features are put into different libraries
+                    with their own docs
+                    in scala everything is put into the language
+                    this confuses me
+                    means there are many different ways to do things
                 </aside>
             </section>
             <section data-background="clojure-cheatsheet.png">
                  <aside class="notes">
-                    <ul>
-                        <li>clojure cheatsheet</li>
-                        <li>would keep this open when working</li>
-                        <li>shows how concise the language is</li>
-                        <li>repl v.useful</li>
-                        <li>jay fields - repl driven development</li>
-                        <li>is my app doing what i expect?</li>
-                        <li>what happens when i execute this arbitrary code?</li>
-                        <li>initially this second point helped me work out how to use the language</li>
-                        <li>quicker feedback than unit test</li>
-                        <li>and for that sort of thing you would end up deleting the test anyway</li>
-                    </ul>
+                    clojure cheatsheet
+                    would keep this open when working
+                    shows how concise the language is
+                    repl v.useful
+                    jay fields - repl driven development
+                    is my app doing what i expect?
+                    what happens when i execute this arbitrary code?
+                    initially this second point helped me work out how to use the language
+                    quicker feedback than unit test
+                    and for that sort of thing you would end up deleting the test anyway
                 </aside>
             </section>
             <section><img src="real-programmers.png">
                  <aside class="notes">
-                    <ul>
-                        <li>why did we use emacs?</li>
-                        <li>easier to use the same ide when you're pairing</li>
-                        <li>for a short project, felt like it would be cheaper to deal with everyone learning one ide</li>
-                        <li>rather than each picking their favourite!</li>
-                        <li>evil mode helped our vi user</li>
-                        <li>although made pairing trickier!</li>
-                        <li>not too bad to start with</li>
-                        <li>if you don't know the language it doesn't matter if you don't know the shortcuts!</li>
-                        <li>missed having an ide for small refactors and renames</li>
-                        <li>still struggled with emacs by the end</li>
-                        <li>by halfway felt like it wasn't actively blocking me getting things done</li>
-                        <li>but also didn't feel like it was helping</li>
-                        <li>i think if you want to get moving quickly with clojure, emacs at the same time maybe isn't the win</li>
-                        <li>apparently cursive plugin for intellij is good</li>
-                    </ul>
+                    why did we use emacs?
+                    easier to use the same ide when you're pairing
+                    for a short project, felt like it would be cheaper to deal with everyone learning one ide
+                    rather than each picking their favourite!
+                    evil mode helped our vi user
+                    although made pairing trickier!
+                    not too bad to start with
+                    if you don't know the language it doesn't matter if you don't know the shortcuts!
+                    missed having an ide for small refactors and renames
+                    still struggled with emacs by the end
+                    by halfway felt like it wasn't actively blocking me getting things done
+                    but also didn't feel like it was helping
+                    i think if you want to get moving quickly with clojure, emacs at the same time maybe isn't the win
+                    apparently cursive plugin for intellij is good
                 </aside>
             </section>
             <section data-background="emacs-cheatsheet.png">
                  <aside class="notes">
-                    <ul>
-                        <li>if you are going to use emacs...</li>
-                        <li>there are many cheatsheets</li>
-                        <li>these are much more complicated than the clojure cheatsheets!</li>
-                        <li>emacs live was initially good</li>
-                        <li>but the shortcuts were different</li>
-                        <li>and it didn't play that well with midje tests</li>
-                        <li>magit is awesome</li>
-                        <li>sometimes i still use this for complex git merges</li>
-                    </ul>
+                    if you are going to use emacs...
+                    there are many cheatsheets
+                    these are much more complicated than the clojure cheatsheets!
+                    emacs live was initially good
+                    but the shortcuts were different
+                    and it didn't play that well with midje tests
+                    magit is awesome
+                    sometimes i still use this for complex git merges
                 </aside>
             </section>
             <section>
@@ -196,13 +186,11 @@
             <section>
                 <h1>reloaded workflow</h1>
                  <aside class="notes">
-                    <ul>
-                        <li>Cider = clojure repl and ide for emacs</li>
-                        <li>built on nrepl</li>
-                        <li>lets you connect to a running app</li>
-                        <li>and dynamically redefine parts of it</li>
-                        <li>used stuart sierra's reloaded flow</li>
-                    </ul>
+                    Cider = clojure repl and ide for emacs
+                    built on nrepl
+                    lets you connect to a running app
+                    and dynamically redefine parts of it
+                    used stuart sierra's reloaded flow
                 </aside>
             </section>
             <section>
@@ -222,29 +210,27 @@
     (repl/refresh :after 'user/go))
                 </code></pre></h1>
                  <aside class="notes">
-                    <ul>
-                        <li>uses clojure.tools.namespace to work out which source files have changed</li>
-                        <li>refreshes these in the running dev env</li>
-                        <li>you have to define the reset function in user.clj</li>
-                        <li>loaded by default when you start the repl</li>
-                        <li>stops the running app</li>
-                        <li>reloads changed namespaces</li>
-                        <li>creates and starts the app again</li>
-                        <li>all within the same jvm</li>
-                        <li>so super fast</li>
-                        <li>which means super fast feedback - just call reset from repl</li>
-                        <li>have to define a dev profile in your leingingen config</li>
-                        <li>so the user.clj file is only used in dev</li>
-                        <li>not deployed in the jar</li>
-                        <li>this dramatically improved our dev experience</li>
-                        <li>took us a while to get it working</li>
-                        <li>you have to have no global state - so you can stop and start up without problems</li>
-                        <li>and have to pass things that might otherwise be global, e.g. db connections, thread pool as params</li>
-                        <li>didn't work so well with the frontend stuff</li>
-                        <li>used enlive for templating</li>
-                        <li>when html files changed on disk this was not picked up</li>
-                        <li>will talk more about this later</li>
-                    </ul>
+                    uses clojure.tools.namespace to work out which source files have changed
+                    refreshes these in the running dev env
+                    you have to define the reset function in user.clj
+                    loaded by default when you start the repl
+                    stops the running app
+                    reloads changed namespaces
+                    creates and starts the app again
+                    all within the same jvm
+                    so super fast
+                    which means super fast feedback - just call reset from repl
+                    have to define a dev profile in your leingingen config
+                    so the user.clj file is only used in dev
+                    not deployed in the jar
+                    this dramatically improved our dev experience
+                    took us a while to get it working
+                    you have to have no global state - so you can stop and start up without problems
+                    and have to pass things that might otherwise be global, e.g. db connections, thread pool as params
+                    didn't work so well with the frontend stuff
+                    used enlive for templating
+                    when html files changed on disk this was not picked up
+                    will talk more about this later
                 </aside>
             </section>
             <section>
@@ -307,22 +293,20 @@
             <section>
                 <section><img src="auth-with-hub-no-ua.png"></section>
                  <aside class="notes">
-                    <h2>Advantages</h2>
-                    <ul>
-                        <li>work with multiple services</li>
-                        <li>work with multiple idps</li>
-                        <li>only need to change the hub in the middle</li>
-                        <li>layer of privacy in the middle</li>
-                        <li>the service doesn't need to know which idp is being used</li>
-                        <li>idp doesn't need to know which service is being used</li>
-                        <li>how gov uk verify works</li>
-                        <li>hub doesn't store any data</li>
-                        <li>just passes data around</li>
-                        <li>with ring and compojure easy to add a new web service</li>
-                        <li>http req and resp just maps</li>
-                        <li>to the service the hub looks like an idp</li>
-                        <li>to the idp the hub looks like a service</li>
-                    </ul>
+                    Advantages
+                    work with multiple services
+                    work with multiple idps
+                    only need to change the hub in the middle
+                    layer of privacy in the middle
+                    the service doesn't need to know which idp is being used
+                    idp doesn't need to know which service is being used
+                    how gov uk verify works
+                    hub doesn't store any data
+                    just passes data around
+                    with ring and compojure easy to add a new web service
+                    http req and resp just maps
+                    to the service the hub looks like an idp
+                    to the idp the hub looks like a service
                 </aside>
             </section>
         </section>
@@ -334,15 +318,13 @@
         <section>
             <h2>was it a success?</h2>
              <aside class="notes">
-                <ul>
-                    <li>Achieved technical aim</li>
-                    <li>didn't implement everything</li>
-                    <li>good understanding of how the system could work</li>
-                    <li>different options of how it could be built</li>
-                    <li>could see what would require further technical exploration</li>
-                    <li>kerodon tests expressive enough to be part of the technical artifact of the alpha</li>
-                    <li>not perfect code but that wasn't the aim</li>
-                </ul>
+                Achieved technical aim
+                didn't implement everything
+                good understanding of how the system could work
+                different options of how it could be built
+                could see what would require further technical exploration
+                kerodon tests expressive enough to be part of the technical artifact of the alpha
+                not perfect code but that wasn't the aim
             </aside>
         </section>
         <section>
@@ -356,17 +338,15 @@
                     In particular, that investment might be premature if the team learns they are not solving the right problem.&rdquo;
                 </blockquote>
                  <aside class="notes">
-                    <ul>
-                        <li>needs for org ida not the same across services</li>
-                        <li>doesn't make sense for gds to build a govt wide thing</li>
-                        <li>some services need fine grained perms, others don't</li>
-                        <li>some services already have relationships established</li>
-                        <li>if you’re the headmaster of hogwarts and have been registering
-                            wands for ten years with the ministry of magic you don't want
-                            to suddenly prove that you have the authority to do so</li>
-                        <li>already commercial solutions available</li>
-                        <li>see ida blog for more info</li>
-                    </ul>
+                    needs for org ida not the same across services
+                    doesn't make sense for gds to build a govt wide thing
+                    some services need fine grained perms, others don't
+                    some services already have relationships established
+                    if you’re the headmaster of hogwarts and have been registering
+                        wands for ten years with the ministry of magic you don't want
+                        to suddenly prove that you have the authority to do so
+                    already commercial solutions available
+                    see ida blog for more info
                 </aside>
             </section>
         </section>
@@ -374,14 +354,12 @@
         <section>
             <h2>would we use clojure for a similar project?</h2>
              <aside class="notes">
-                <ul>
-                    <li>With a similar team, yes</li>
-                    <li>probably even if the team had no experience in clojure</li>
-                    <li>it is quick to pick up</li>
-                    <li>this has shown it's good for prototyping</li>
-                    <li>good precedent set at gds</li>
-                    <li>Other TW prototypes have since been built in clojure</li>
-                </ul>
+                With a similar team, yes
+                probably even if the team had no experience in clojure
+                it is quick to pick up
+                this has shown it's good for prototyping
+                good precedent set at gds
+                Other TW prototypes have since been built in clojure
             </aside>
         </section>
 
