@@ -121,8 +121,7 @@ We built our prototype in Clojure -- hence this talk.
       - Some Scala, Racket
     - No time to learn the language before project. Joined TW, started
     project in week 1 of alpha.
-    - Steep learning curve to begin with
-      - had to look up simple things (e.g. what can you do with a map?)
+    - to begin with had to look up simple things (e.g. what can you do with a map?)
     - Easier to pick up than Scala?
       - In clojure extra features are put into different libraries with
         their own documentation
@@ -336,6 +335,7 @@ We built our prototype in Clojure -- hence this talk.
    - verify blog https://identityassurance.blog.gov.uk/
      - especially https://identityassurance.blog.gov.uk/2014/10/20/identity-assurance-for-organisations-and-agents/
    - service manual
+     - especially https://www.gov.uk/service-manual/phases/alpha.html and https://www.gov.uk/service-manual/phases/ideal-alphas#ending-the-alpha
    - Jay Fields blog
      - Repl-Driven Development http://blog.jayfields.com/2014/01/repl-driven-development.html
    - Giles Anderson blog

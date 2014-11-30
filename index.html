@@ -99,12 +99,15 @@
         <section>
             <section>
                 <h2>how was it using clojure for the first time?</h2>
-            </section>
-            <section>
-                <h3>for a total noob</h3>
-                <ul>
-                    <li>clojure: new</li>
-                </ul>
+                <h3>for someone who had never used it before?</h3>
+                <aside>
+                    <ul>
+                        <li>concise and simple</li>
+                        <li>http request and response are maps, so once you know what you can do with a map</li>
+                        <li>not much code</li>
+                        <li>easy to read, debug</li>
+                    </ul>
+                </aside>
             </section>
             <section data-background="clojure-cheatsheet.png"></section>
             <section><img src="real-programmers.png"></section>
@@ -114,12 +117,13 @@
                 <h3>for a keen hobbyist?</h3>
             </section>
         </section>
+
         <section>
             <section>
                 <h2>what worked?</h2>
             </section>
             <section>
-                <p>reloaded workflow</p>
+                <h1>reloaded workflow</h1>
             </section>
             <section>
                 <h1>
@@ -189,6 +193,33 @@
                 </code></pre></h1>
 
             </section>
+            <section>
+                <h1>adding the orchestration</h1>
+            </section>
+            <section>
+                A diagram without the hub?
+            </section>
+            <section>
+                A diagram with the hub
+                <aside>
+                    <h2>Advantages</h2>
+                    <ul>
+                        <li>work with multiple services</li>
+                        <li>work with multiple idps</li>
+                        <li>only need to change the hub in the middle</li>
+                        <li>layer of privacy in the middle</li>
+                        <li>the service doesn't need to know which idp is being used</li>
+                        <li>idp doesn't need to know which service is being used</li>
+                        <li>how gov uk verify works</li>
+                        <li>hub doesn't store any data</li>
+                        <li>just passes data around</li>
+                        <li>with ring and compojure easy to add a new web service</li>
+                        <li>http req and resp just maps</li>
+                        <li>to the service the hub looks like an idp</li>
+                        <li>to the idp the hub looks like a service</li>
+                    </ul>
+                </aside>
+            </section>
         </section>
 
         <section>
@@ -196,11 +227,56 @@
         </section>
 
         <section>
-            <h2>was it ultimately a success?</h2>
+            <h2>was it a success?</h2>
+            <aside>
+                <ul>
+                    <li>Achieved technical aim</li>
+                    <li>didn't implement everything</li>
+                    <li>good understanding of how the system could work</li>
+                    <li>different options of how it could be built</li>
+                    <li>could see what would require further technical exploration</li>
+                    <li>kerodon tests expressive enough to be part of the technical artifact of the alpha</li>
+                    <li>not perfect code but that wasn't the aim</li>
+                </ul>
+            </aside>
+        </section>
+        <section>
+            <section>
+                <h2>what is happening now?</h2>
+            </section>
+            <section>
+                <blockquote cite="https://www.gov.uk/service-manual/phases/ideal-alphas#ending-the-alpha">
+                    &ldquo;Remember that a primary goal during the alpha is learning.
+                    We might not be ready to make the investment in creating production-ready systems.
+                    In particular, that investment might be premature if the team learns they are not solving the right problem.&rdquo;
+                </blockquote>
+                <aside>
+                    <ul>
+                        <li>needs for org ida not the same across services</li>
+                        <li>doesn't make sense for gds to build a govt wide thing</li>
+                        <li>some services need fine grained perms, others don't</li>
+                        <li>some services already have relationships established</li>
+                        <li>if you’re the headmaster of hogwarts and have been registering
+                            wands for ten years with the ministry of magic you don't want
+                            to suddenly prove that you have the authority to do so</li>
+                        <li>already commercial solutions available</li>
+                        <li>see ida blog for more info</li>
+                    </ul>
+                </aside>
+            </section>
         </section>
 
         <section>
-            <h2>what would we change if we did it again?</h2>
+            <h2>would we use clojure for a similar project?</h2>
+            <aside>
+                <ul>
+                    <li>With a similar team, yes</li>
+                    <li>probably even if the team had no experience in clojure</li>
+                    <li>it is quick to pick up</li>
+                    <li>good for prototypes</li>
+                    <li>Other TW prototypes have since been built in clojure</li>
+                </ul>
+            </aside>
         </section>
 
     </div>
