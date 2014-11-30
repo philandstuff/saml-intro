@@ -4,6 +4,9 @@
      - GOV.UK Verify as starting point
        - screenshots?
      - then extend to organizations?
+   - GDS & services
+   - GOV.UK Verify
+   - organisations: the problem domain
    - team:
      - roughly split between user research & architecture research
    - [[https://www.gov.uk/service-manual/phases/alpha.html][alpha]]
@@ -33,6 +36,71 @@
          cross-government service like GOV.UK Verify?
        - how can someone prove, entirely digitally, that an organisation
          exists and they have authority to act on its behalf?
+   - introduction to web authentication
+     - 
+   - architectural questions
+     - hub or no hub?
+     - who stores what?
+     - extra data sources?
+
+Good afternoon!  I am Philip Potter <rachel introduces herself>
+
+We work at the Government Digital Service.  I am a civil servant,
+<rachel introduces tw>
+
+We work for the GOV.UK Verify programme.  Part of what we are doing in
+Government is taking services that traditionally have been provided in
+non-digital means, and making them available digitally.  Services such
+as: register to vote, ...
+
+As part of this, the service needs to be certain that you are who you
+say you are.  To this end, we are developing GOV.UK Verify, which
+looks something like this:
+
+I have a service I want to log in to -- in this case, I'm buying my
+brother Harry a new wand for Christmas, and I want to register it with
+the Ministry of Magic.  To start the transaction, the service sends me
+to the GOV.UK Verify hub service to get me to log in.  I choose from a
+list of identity providers: we currently have two, experian and
+digidentity; we have two more coming onboard soon, the Post Office and
+Verizon, and we hope to expand this even wider in the medium term.
+
+I'm choosing digidentity because I have previously set up an account
+with them.  They send my Matching Data Set -- my name, address, date
+of birth, and gender -- back to the GOV.UK Verify hub, which passes
+them back to the wand registration service.
+
+What we've achieved here is:
+
+  - a single login for all services (eventually)
+    - I used this for wand registration, but I could also use it for
+      my tax return
+  - avoided building a single government identity database
+  - the identity provider doesn't know which service I used
+    - they won't see that I'm registering a wand, rather than paying
+      my tax
+
+This is now in public beta: there are services which are using this
+system to verify the identity of the people using them.
+
+There is a use case, though, which this doesn't cover: what if I'm not
+doing this for myself, but on behalf of an organisation?  Maybe the
+wand isn't registered to me personally, but to my professional
+Quidditch club.  Maybe I'm not doing my personal tax return, but that
+of my company.  How would we build digital services which could allow
+people to do this?  What would they look like?  What would we have to
+think about?
+
+In the Spring of this year, we worked on a prototype to try to answer
+some of these questions.  We had a team of roughly 10 people, split
+into two broad streams of work: user research, and technical
+prototyping.  The question we were asking was: "can we build something
+people would want to use?"  The user researchers were tackling the
+second half of this question, while we on the technical side were
+tackling the first half.
+
+
+
 ** why clojure?                                                        :PHIL:
    - GOV.UK Verify is already on the JVM
      - Java
@@ -40,6 +108,9 @@
      based respectively
    - hitchhiking antipattern
      - http://overwatering.org/blog/2014/11/the-hitchhiking-anti-pattern/
+
+We built our prototype in Clojure -- hence this talk.
+
 ** how did we get on with clojure?
 *** for the first time?                                              :RACHEL:
 *** for your day job?                                                  :PHIL:
@@ -73,8 +144,79 @@
 ** was it a success?                                                 :RACHEL:
 ** what would we change if we did it again?                          :RACHEL:
 * parking lot of ideas
+** things to define for rachel
+   - IdP and Hub
+   - SAML and OpenID Connect
+   - issues with enlive
 ** links
    - verify blog https://identityassurance.blog.gov.uk/
      - especially https://identityassurance.blog.gov.uk/2014/10/20/identity-assurance-for-organisations-and-agents/
    - service manual
-   - 
+   -
+** web sequence diagrams
+*** simplified auth flow
+
+participant Service
+participant User Agent
+participant Identity Provider
+
+
+User Agent->Service: Hello! I'd like to do something!
+Service->User Agent: Who are you? Go to Identity Provider with this authn request
+User Agent->Identity Provider: I want to use <Service>, here's a request from them
+Identity Provider->User Agent: Please identity yourself
+User Agent->Identity Provider: <sign-in credentials>
+Identity Provider->User Agent: Looks good, take this signed assertion that you're okay with me
+User Agent->Service: This signed messsage says I'm good, let me in
+Service->User Agent: Great, let's get started!
+
+*** simplified auth flow, implicit UA
+
+participant Service
+participant Identity Provider
+
+Service->Identity Provider: (via user agent) Who is this user?
+note over Identity Provider: User authenticates with credentials
+Identity Provider->Service: (via user agent) This user is John Smith
+
+*** citizen verify
+
+participant Service
+participant User Agent
+participant Hub
+participant Identity Provider
+
+
+User Agent->Service: Hello! I'd like to do something!
+Service->User Agent: Go to hub with AuthnRequest
+User Agent->Hub: I want to use <Service>, here's a request from them
+Hub->User Agent: Go to IdP with AuthnRequest
+User Agent->Identity Provider: I want to use the identity hub, here's a request from them
+Identity Provider->User Agent: Please identity yourself
+User Agent->Identity Provider: <sign-in credentials>
+Identity Provider->User Agent: Looks good, take this signed assertion that you're okay with me
+User Agent->Hub: The IdP says I'm cool
+Hub->User Agent: Looks good, take this token to the service
+User Agent->Service: The hub says I'm good, let me in
+Service->User Agent: Great, let's get started!
+
+*** citizen verify, implicit UA
+
+participant Service
+participant Hub
+participant Identity Provider
+
+
+Service->Hub: (via user agent) Who is this user?
+note over Hub
+  user chooses an
+  identity provider
+end note
+Hub->Identity Provider: (via user agent) Who is this user?
+note over Identity Provider
+  user authenticates
+  with credentials
+end note
+Identity Provider->Hub: (via user agent, signed) This is John Smith
+Hub->Service: (via user agent, signed) This user is John Smith
+
