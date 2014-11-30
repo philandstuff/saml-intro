@@ -139,12 +139,55 @@
                 </code></pre></h1>
             </section>
             <section>
-                <h1>
-                <pre><code class="clojure" data-trim>
-(defn foo
-  (-> session
-    (follow "foo")))
+                <h1>kerodon</h1>
+            </section>
+            <section>
+                <h1><pre><code class="clojure" data-trim>
+(-> (session ring-app)
+  (visit "/")
+  (follow "login")
+  (fill-in "User:" "username")
+  (fill-in "Password:" "password")
+  (press "Login")
+  (follow-redirect)
+  (has (missing? [:#no-such-element])
+       "User shouldn't see the no-such-element"))
                 </code></pre></h1>
+            </section>
+            <section>
+                <h1><pre><code class="clojure" data-trim>
+(-> (ida-session (combined-handler)
+  (visit "http://wands.gov.uk/register")
+  (helpers/sign-in)
+  (follow "Delegate your authority")
+  (visit "http://wands.gov.uk/persist-delegation"
+         :request-method :post)
+  (follow-redirect) ; to Identity Provider
+  (press "Continue")
+  (follow-redirect) ; back to service
+  (check-response
+    (should-redirect-to
+      "http://wands.gov.uk/"))))
+                </code></pre></h1>
+            </section>
+            <section>
+              <img src="ring-handler.png">
+            </section>
+            <section>
+
+              <h1><pre><code class="clojure" data-trim>
+(defn combined-handler []
+  (let [apps {"idp.com"       michie/handler
+              "orch.gov.uk"   knox/handler
+              "wands.gov.uk"  candela/handler
+              "orgs.gov.uk"   al-kindi/handler
+              "agents.gov.uk" wheatstone/handler}]
+    (fn [req]
+      (let [app (get apps (:server-name req)
+                     default-handler)]
+        (app req)))))
+                </code></pre></h1>
+
             </section>
         </section>
 
