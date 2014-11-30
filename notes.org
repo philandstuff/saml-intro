@@ -7,8 +7,6 @@
    - GDS & services
    - GOV.UK Verify
    - organisations: the problem domain
-   - team:
-     - roughly split between user research & architecture research
    - [[https://www.gov.uk/service-manual/phases/alpha.html][alpha]]
      - service manual
      - purpose:
@@ -36,6 +34,8 @@
          cross-government service like GOV.UK Verify?
        - how can someone prove, entirely digitally, that an organisation
          exists and they have authority to act on its behalf?
+   - team:
+     - roughly split between user research & architecture research
    - introduction to web authentication
      -
    - architectural questions
