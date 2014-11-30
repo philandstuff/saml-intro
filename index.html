@@ -78,7 +78,6 @@
         </section>
         <section>
           <section><img src="simple-auth.png"></section>
-          <section><img src="simple-auth-no-ua.png"></section>
           <section><img src="auth-with-hub.png"></section>
           <section><img src="auth-with-hub-no-ua.png"></section>
         </section>
@@ -102,16 +101,88 @@
                 <h3>for someone who had never used it before?</h3>
                 <aside>
                     <ul>
+                        <li>Background - java, some scala, racket</li>
+                        <li>no time to learn clojure first</li>
+                        <li>found it easy to pick up</li>
                         <li>concise and simple</li>
-                        <li>http request and response are maps, so once you know what you can do with a map</li>
-                        <li>not much code</li>
-                        <li>easy to read, debug</li>
                     </ul>
                 </aside>
             </section>
-            <section data-background="clojure-cheatsheet.png"></section>
-            <section><img src="real-programmers.png"></section>
-            <section data-background="emacs-cheatsheet.png"></section>
+            <section>
+                <h1><pre><code class="clojure" data-trim>
+(defn say-hello [request]
+    (let [name (get-in request [:query-params "name"])]
+                (build-html name))
+
+(defn app-routes [config]
+    (handler/site
+        (routes ( GET "/hello-world" [:as request]
+                    (say-hello request)))))
+                </code></pre></h1>
+                <aside>
+                    <ul>
+                        <li>http request and response are maps, so once you know what you can do with a map</li>
+                        <li>not much code</li>
+                        <li>easy to read, debug</li>
+                        <li>very different to scala</li>
+                        <li>in clojure extra features are put into different libraries</li>
+                        <li>with their own docs</li>
+                        <li>in scala everything is put into the language</li>
+                        <li>this confuses me</li>
+                        <li>means there are many different ways to do things</li>
+                    </ul>
+                </aside>
+            </section>
+            <section data-background="clojure-cheatsheet.png">
+                <aside>
+                    <ul>
+                        <li>clojure cheatsheet</li>
+                        <li>would keep this open when working</li>
+                        <li>shows how concise the language is</li>
+                        <li>repl v.useful</li>
+                        <li>jay fields - repl driven development</li>
+                        <li>is my app doing what i expect?</li>
+                        <li>what happens when i execute this arbitrary code?</li>
+                        <li>initially this second point helped me work out how to use the language</li>
+                        <li>quicker feedback than unit test</li>
+                        <li>and for that sort of thing you would end up deleting the test anyway</li>
+                    </ul>
+                </aside>
+            </section>
+            <section><img src="real-programmers.png">
+                <aside>
+                    <ul>
+                        <li>why did we use emacs?</li>
+                        <li>easier to use the same ide when you're pairing</li>
+                        <li>for a short project, felt like it would be cheaper to deal with everyone learning one ide</li>
+                        <li>rather than each picking their favourite!</li>
+                        <li>evil mode helped our vi user</li>
+                        <li>although made pairing trickier!</li>
+                        <li>not too bad to start with</li>
+                        <li>if you don't know the language it doesn't matter if you don't know the shortcuts!</li>
+                        <li>missed having an ide for small refactors and renames</li>
+                        <li>still struggled with emacs by the end</li>
+                        <li>by halfway felt like it wasn't actively blocking me getting things done</li>
+                        <li>but also didn't feel like it was helping</li>
+                        <li>i think if you want to get moving quickly with clojure, emacs at the same time maybe isn't the win</li>
+                        <li>apparently cursive plugin for intellij is good</li>
+                    </ul>
+                </aside>
+            </section>
+            <section data-background="emacs-cheatsheet.png">
+                <aside>
+                    <ul>
+                        <li>if you are going to use emacs...</li>
+                        <li>there are many cheatsheets</li>
+                        <li>these are much more complicated than the clojure cheatsheets!</li>
+                        <li>emacs live was initially good</li>
+                        <li>but the shortcuts were different</li>
+                        <li>and it didn't play that well with midje tests</li>
+                        <li>magit is awesome</li>
+                        <li>sometimes i still use this for complex git merges</li>
+                    </ul>
+                </aside>
+            </section>
             <section>
                 <h2>how was it using clojure for the first time?</h2>
                 <h3>for a keen hobbyist?</h3>
@@ -124,6 +195,15 @@
             </section>
             <section>
                 <h1>reloaded workflow</h1>
+                <aside>
+                    <ul>
+                        <li>Cider = clojure repl and ide for emacs</li>
+                        <li>built on nrepl</li>
+                        <li>lets you connect to a running app</li>
+                        <li>and dynamically redefine parts of it</li>
+                        <li>used stuart sierra's reloaded flow</li>
+                    </ul>
+                </aside>
             </section>
             <section>
                 <h1>
@@ -141,6 +221,31 @@
     (stop)
     (repl/refresh :after 'user/go))
                 </code></pre></h1>
+                <aside>
+                    <ul>
+                        <li>uses clojure.tools.namespace to work out which source files have changed</li>
+                        <li>refreshes these in the running dev env</li>
+                        <li>you have to define the reset function in user.clj</li>
+                        <li>loaded by default when you start the repl</li>
+                        <li>stops the running app</li>
+                        <li>reloads changed namespaces</li>
+                        <li>creates and starts the app again</li>
+                        <li>all within the same jvm</li>
+                        <li>so super fast</li>
+                        <li>which means super fast feedback - just call reset from repl</li>
+                        <li>have to define a dev profile in your leingingen config</li>
+                        <li>so the user.clj file is only used in dev</li>
+                        <li>not deployed in the jar</li>
+                        <li>this dramatically improved our dev experience</li>
+                        <li>took us a while to get it working</li>
+                        <li>you have to have no global state - so you can stop and start up without problems</li>
+                        <li>and have to pass things that might otherwise be global, e.g. db connections, thread pool as params</li>
+                        <li>didn't work so well with the frontend stuff</li>
+                        <li>used enlive for templating</li>
+                        <li>when html files changed on disk this was not picked up</li>
+                        <li>will talk more about this later</li>
+                    </ul>
+                </aside>
             </section>
             <section>
                 <h1>kerodon</h1>
@@ -194,13 +299,13 @@
 
             </section>
             <section>
-                <h1>adding the orchestration</h1>
+                <h1>adding orchestration</h1>
             </section>
             <section>
-                A diagram without the hub?
+                <section><img src="simple-auth-no-ua.png"></section>
             </section>
             <section>
-                A diagram with the hub
+                <section><img src="auth-with-hub-no-ua.png"></section>
                 <aside>
                     <h2>Advantages</h2>
                     <ul>
@@ -273,7 +378,8 @@
                     <li>With a similar team, yes</li>
                     <li>probably even if the team had no experience in clojure</li>
                     <li>it is quick to pick up</li>
-                    <li>good for prototypes</li>
+                    <li>this has shown it's good for prototyping</li>
+                    <li>good precedent set at gds</li>
                     <li>Other TW prototypes have since been built in clojure</li>
                 </ul>
             </aside>
