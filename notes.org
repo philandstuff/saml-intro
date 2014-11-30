@@ -307,9 +307,9 @@ We built our prototype in Clojure -- hence this talk.
         - So these permissions would need to be stored with the service.
       - Some services already have existing relationships between
         individuals and their organisations.
-        - if you’ve been paying tax for your organisation with HMRC for
-          ten years already you don't want to suddenly prove that you
-          have the authority to do that
+        - if you’re the headmaster of hogwarts and have been registering
+         wands for ten years with the ministry of magic you don't want
+         to suddenly prove that you have the authority to do so
       - There are already solutions in the marketplace that can meet
         these needs
     - More information the GDS Identity Assurance blog.
