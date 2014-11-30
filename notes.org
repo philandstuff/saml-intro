@@ -336,7 +336,15 @@ We built our prototype in Clojure -- hence this talk.
    - verify blog https://identityassurance.blog.gov.uk/
      - especially https://identityassurance.blog.gov.uk/2014/10/20/identity-assurance-for-organisations-and-agents/
    - service manual
-   -
+   - Jay Fields blog
+     - Repl-Driven Development http://blog.jayfields.com/2014/01/repl-driven-development.html
+   - Giles Anderson blog
+     - Hitch-hiker Anti-pattern http://overwatering.org/blog/2014/11/the-hitchhiking-anti-pattern/
+   - Stuart Sierra blog
+     - My Clojure Workflow, Reloaded http://thinkrelevance.com/blog/2013/06/04/clojure-workflow-reloaded
+   - Emacs Cheatsheet http://www.rgrjr.com/emacs/emacs_cheat.html
+   - Clojure Cheatsheet http://clojure.org/cheatsheet
+
 ** web sequence diagrams
 *** simplified auth flow
 
