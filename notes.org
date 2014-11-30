@@ -37,7 +37,7 @@
        - how can someone prove, entirely digitally, that an organisation
          exists and they have authority to act on its behalf?
    - introduction to web authentication
-     - 
+     -
    - architectural questions
      - hub or no hub?
      - who stores what?
@@ -113,6 +113,73 @@ We built our prototype in Clojure -- hence this talk.
 
 ** how did we get on with clojure?
 *** for the first time?                                              :RACHEL:
+    - Background:
+      - mainly Java with some functional stuff - Totally Lazy, Guava
+        although when you have to wrap everything in layers and layers of
+        abstraction just so you can map a collection you lose some of the
+        awesome).
+      - Some Scala, Racket
+    - No time to learn the language before project. Joined TW, started
+    project in week 1 of alpha.
+    - Steep learning curve to begin with
+      - had to look up simple things (e.g. what can you do with a map?)
+    - Easier to pick up than Scala?
+      - In clojure extra features are put into different libraries with
+        their own documentation
+      - In Scala everything is part of the language so there are hundreds
+        of different ways to do the same thing.
+    - Clojure is concise and simple
+      - code you end up writing
+      - language itself
+      - Easy to read
+      - Easy to debug.
+    - Recommendations for other people new to clojure
+      - Leiningen easy to install, manages dependencies easily
+      - Compojure, ring sets up web service easily
+      - Repl
+        - Jay Fields: Repl-Driven Development
+          1. Is my application doing what I expect, and
+          2. What does this arbitrary code return when executed
+          - Repl useful for both of these things, in particular for 2) and
+            working out basic things at the start.
+          - Much quicker feedback than writing a unit test to work out what
+            something does and then later deleting the test
+      - Clojure cheatsheet helped (http://clojure.org/cheatsheet)
+*** with emacs?                                                        :RACHEL:
+    - Why did we use Emacs?
+      - 4 of us at the start
+        - 1 used Emacs
+        - 1 used vi
+        - 2 of us had used neither
+      - Easier to use the same IDE when you’re pairing
+          Particularly on a short project such as this
+        - The cost of context-switching between unfamiliar IDEs and learning
+          multiple tools outweighed the benefits of individual choice.
+      - Evil mode in Emacs helped Alex a lot (although sometimes made pairing
+        tricky)
+    - Initially easier to work with than Clojure
+      - you can just use it as a regular text editor and type everything longhand
+      - It doesn’t matter if you don’t know the shortcuts if you don’t know the
+        language you’re using!
+    - Missed having an IDE for small refactors / renames (consequently did less of
+    this)
+    - Still struggled with emacs by the end
+      - By about half way through I felt like it was no longer hindering me
+        getting stuff done
+      - I never really felt like it was helping either
+    - Could have used Cursive plugin for IntelliJ
+      - other TWers have since and say that it’s awesome
+    - Recommendations for other people new to Emacs
+      - Emacs Live was initially useful for the two of us who’d not used Emacs
+        before
+        - Eventually we switched back to regular Emacs
+          - problems interacting with Midje
+          - some shortcuts being different.
+      - Help feature was very useful (says Will)
+      - Emacs cheatsheet (http://www.rgrjr.com/emacs/emacs_cheat.html)
+      - Magit awesome
+        - Interface is simpler and easier to visualise on than git command line
+        - Still use for complicated merges now
 *** for your day job?                                                  :PHIL:
     - worry: using a language for a hobby is not the same as using it
       for your day job
@@ -126,9 +193,46 @@ We built our prototype in Clojure -- hence this talk.
     - worries: generally unfounded
       - a joy to work with
       - learned some of clojure's weaker points
-      - 
+      -
 ** what went well?
 *** reloaded                                                         :RACHEL:
+    - One of the great things we got with Emacs was Cider.
+      - Clojure repl and ide for Emacs
+        - built on top of the nRepl (Clojure networked repl server)
+      - Lets you connect to a running Clojure application
+      - Lets you dynamically redefine parts of it
+    - We used Stuart Sierra’s reloaded flow
+      - Uses the clojure.tools.namespace to determine source files that
+        have changed
+      - Then refreshes these in the running dev environment
+    - To make this work we had to define the reset function in user.clj
+      - this gets loaded by default when you start the repl
+        - Stops the running application
+        - Reloads any namespaces that have changed
+        - Creates and starts the application again
+        - All within the same JVM
+    - Had to define a :dev profile
+      - so the user.clj file is only used for dev
+      - It does not get deployed with the jar
+    - Why was this awesome?
+      - Dramatically improved dev experience
+        - We could see the effect of a code change simply by calling
+            `(reset)` from the repl.
+        - super fast feedback
+    - What was not so awesome?
+      - Enlive
+        - front end templating
+        - doesn’t have mature auto-reload support
+        - So when HTML files changed on disk it did not get picked up by
+          the running app
+        - Will talk more about our experience with Enlive later
+    - Recommendations:
+      - Get this set up really early on
+      - Some restrictions on writing your application
+        - can’t have global state
+        - have to pass things like dbconnection around as a param for
+            functions to access it.
+      - Definitely worth it.
 *** kerodon & peridot                                                  :PHIL:
     - these were a joy to use
     - vhosting at the ring handler level made this project much easier
@@ -137,12 +241,92 @@ We built our prototype in Clojure -- hence this talk.
       - https://github.com/xeqi/kerodon/pull/25
       - https://github.com/xeqi/peridot/issues/17
 *** inserting or removing the orchestration                          :RACHEL:
+    - Why did we add in another component?
+      - Interested in if we should have a ‘hub’ in the middle
+        - between the identity provider and service.
+      - Advantage of this is that it would mean we could work with
+         - multiple services
+         - multiple identity providers
+         - only need to change the hub in the middle
+      - Adds a layer of privacy between the two ends
+        - The service doesn’t need to know about which identity provider
+          is being used
+        - the Identity Provider doesn’t need to know which service they
+          are providing the identity for
+        - This is how GOV UK Verify works
+        - Hub doesn’t store any data
+          - simply passes it back and forth between the two sides.
+    - To keep things simple, we started out with just a service and an
+      Identity Provider
+      - explored the interactions between the two.
+    - Later on (as the user research journey matured?) we added in a hub.
+    - How did clojure make this easy?
+      - Clojure / Ring made it easy to add an additional component in
+        the middle.
+      - Web services made simple
+        - http request is a map of params and body
+        - so is a response
+    - Hub sits in the middle
+      - so to the Relying Party it looks like an Identity Provider
+      - to the Identity Provider it looks like a Relying Party
+      - This means it need to share interfaces with both.
+      - Easy to extract common interfaces and add new thing in the middle
+    - Means you can be flexible in your development
+      - useful in a prototype when you want to try out lots of ideas
+
 ** what didn't go so well?                                             :PHIL:
    - enlive
    - stubbing
      - http://blog.josephwilk.net/clojure/isolating-external-dependencies-in-clojure.html
 ** was it a success?                                                 :RACHEL:
-** what would we change if we did it again?                          :RACHEL:
+    - Achieved the technical aim of the project
+      - But we didn’t get to implement everything
+    - we developed a good understanding of how the system could work
+      - including if we built it in any of a few different ways
+      - we understood which design choices we would have to make up front
+    - What we had done enabled us to see how data would flow through the system.
+    - We could see what would need further technical exploration before
+      the service was developed for real.
+    - It's not perfect code
+      - we didn’t have to maintain it
+      - didn’t write that many tests
+      - but this was explicitly not a goal so that was fine for us
+      - the kerodon tests were very expressive
+        - they are the technical artifact of this alpha
+
+** what is happening to the stuff we did now?                          :RACHEL:
+    - Successful alpha but we are not currently building anything
+      from this:
+      - Because the needs for organisation identity assurance are not
+        standard across different government services
+        - So it doesn't make sense for GDS to build a govt-wide
+          business identity service
+        - Some services require much finer grained permissions about
+          what an individual can and cannot do on behalf of their
+          organisation than other services
+        - So these permissions would need to be stored with the service.
+      - Some services already have existing relationships between
+        individuals and their organisations.
+        - if you’ve been paying tax for your organisation with HMRC for
+          ten years already you don't want to suddenly prove that you
+          have the authority to do that
+      - There are already solutions in the marketplace that can meet
+        these needs
+    - More information the GDS Identity Assurance blog.
+
+** Would we choose clojure for a similar project with a similar team?   :RACHEL:
+    - Yes
+      - It would have been harder if the team had not had some
+        Clojure experience at the start
+      - But since we did this alpha TW have done at least 2
+        similar projects
+        - where a small team had to build a prototype that
+          could rapidly evolve
+        - these projects have been done in Clojure
+        - one of them with a team where no one had done clojure
+          before
+   - At TW Clojure is fast becoming the language of choice for prototyping
+
 * parking lot of ideas
 ** things to define for rachel
    - IdP and Hub
@@ -219,4 +403,3 @@ note over Identity Provider
 end note
 Identity Provider->Hub: (via user agent, signed) This is John Smith
 Hub->Service: (via user agent, signed) This user is John Smith
-
