@@ -92,10 +92,9 @@
                 <h3>for a total noob</h3>
                 <ul>
                     <li>clojure: new</li>
-                    <li>emacs: new</li>
-                    <li>tips and tricks</li>
                 </ul>
             </section>
+            <section data-background="real-programmers.png"></section>
             <section>
                 <h3>for someone who's played a lot in spare time</h3>
             </section>
@@ -107,6 +106,23 @@
             </section>
             <section>
                 <p>reloaded workflow</p>
+            </section>
+            <section>
+                <h1>
+                <pre><code class="clojure" data-trim>
+(defonce candela nil)
+
+(defn go []
+        (alter-var-root #'candela
+        (constantly (jetty/run-jetty (cweb/app config)))))
+
+(defn stop []
+    (.stop candela))
+
+(defn reset []
+    (stop)
+    (repl/refresh :after 'user/go))
+                </code></pre></h1>
             </section>
             <section>
                 <h1>
