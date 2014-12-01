@@ -199,15 +199,15 @@
 (defonce candela nil)
 
 (defn go []
-        (alter-var-root #'candela
-        (constantly (jetty/run-jetty (cweb/app config)))))
+  (alter-var-root #'candela
+  (constantly (jetty/run-jetty (cweb/app config)))))
 
 (defn stop []
-    (.stop candela))
+  (.stop candela))
 
 (defn reset []
-    (stop)
-    (repl/refresh :after 'user/go))
+  (stop)
+  (repl/refresh :after 'user/go))
                 </code></pre></h1>
                  <aside class="notes">
                     uses clojure.tools.namespace to work out which source files have changed
