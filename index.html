@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Clojure in the Service of Her Majesty's Government</title>
     <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/simple.css">
     <link rel="stylesheet" href="lib/css/zenburn.css">
 </head>
 
@@ -94,7 +95,7 @@
                 </aside>
             </section>
             <section>
-                <h1><pre><code class="clojure" data-trim>
+                <pre><code class="clojure" data-trim>
 (defn say-hello [request]
     (let [name (get-in request [:query-params "name"])]
                 (build-html name))
@@ -103,7 +104,7 @@
     (handler/site
         (routes ( GET "/hello-world" [:as request]
                     (say-hello request)))))
-                </code></pre></h1>
+                </code></pre>
                  <aside class="notes">
                     http request and response are maps, so once you know what you can do with a map
                     not much code
@@ -181,7 +182,6 @@
                 </aside>
             </section>
             <section>
-                <h1>
                 <pre><code class="clojure" data-trim>
 (defonce candela nil)
 
@@ -195,7 +195,7 @@
 (defn reset []
   (stop)
   (repl/refresh :after 'user/go))
-                </code></pre></h1>
+                </code></pre>
                  <aside class="notes">
                     uses clojure.tools.namespace to work out which source files have changed
                     refreshes these in the running dev env
@@ -224,7 +224,7 @@
                 <h1>kerodon</h1>
             </section>
             <section>
-                <h1><pre><code class="clojure" data-trim>
+                <pre><code class="clojure" data-trim>
 (-> (session ring-app)
   (visit "/")
   (follow "login")
@@ -234,10 +234,10 @@
   (follow-redirect)
   (has (missing? [:#no-such-element])
        "User shouldn't see the no-such-element"))
-                </code></pre></h1>
+                </code></pre>
             </section>
             <section>
-                <h1><pre><code class="clojure" data-trim>
+                <pre><code class="clojure" data-trim>
 (-> (ida-session (combined-handler)
   (visit "http://wands.gov.uk/register")
   (helpers/sign-in)
@@ -250,14 +250,14 @@
   (check-response
     (should-redirect-to
       "http://wands.gov.uk/"))))
-                </code></pre></h1>
+                </code></pre>
             </section>
             <section>
               <img src="ring-handler.png">
             </section>
             <section>
 
-              <h1><pre><code class="clojure" data-trim>
+              <pre><code class="clojure" data-trim>
 (defn combined-handler []
   (let [apps {"idp.com"       michie/handler
               "orch.gov.uk"   knox/handler
@@ -268,7 +268,7 @@
       (let [app (get apps (:server-name req)
                      default-handler)]
         (app req)))))
-                </code></pre></h1>
+                </code></pre>
 
             </section>
             <section>
