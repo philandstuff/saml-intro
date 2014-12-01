@@ -88,11 +88,13 @@
                 <h2>how was it using clojure for the first time?</h2>
                 <h3>for someone who had never used it before?</h3>
                  <aside class="notes">
-                    Background - java, some scala, racket
-                    no time to learn clojure first
-                    found it easy to pick up
-                    concise and simple
-                </aside>
+                     4 devs on the team, 2 had written some clojure before
+                     2 had not, and had only o-o experience
+                     I’d done some Scala and a bit of racket which is a lisp dialect
+                     Obviously we were building a prototype that needed to evolve quickly.
+                     There was no time to learn the language first
+                     Had to learn as we went along
+                 </aside>
             </section>
             <section>
                 <pre><code class="clojure" data-trim>
@@ -106,27 +108,30 @@
                     (say-hello request)))))
                 </code></pre>
                  <aside class="notes">
-                    http request and response are maps, so once you know what you can do with a map
-                    not much code
-                    easy to read, debug
-                    very different to scala
-                    in clojure extra features are put into different libraries
-                    with their own docs
-                    in scala everything is put into the language
-                    this confuses me
-                    means there are many different ways to do things
-                </aside>
+                     Found clojure really easy to pick up
+                     Concise language
+                     Like that extra features are added on in separate libraries not put into the core language
+                     Good documentation
+                     Not much code
+                     Easy to read, easy to debug
+                     http request and response are maps, so once you know what you can do with a map
+                 </aside>
             </section>
             <section data-background="clojure-cheatsheet.png">
                  <aside class="notes">
-                    clojure cheatsheet
-                    would keep this open when working
-                    shows how concise the language is
-                </aside>
+                     To begin with I would keep this open when working
+                     single page
+                     shows how concise the language is
+                     you couldn’t do that with java
+                 </aside>
             </section>
             <section><img src="cider.png">
                 <aside class="notes">
-                    repl v.useful
+                    Cider repl: clojure repl and ide for emacs
+                    built on nrepl
+                    lets you connect to a running app
+                    and dynamically redefine parts of it
+                    really fast feedback
                     jay fields - repl driven development
                     is my app doing what i expect?
                     what happens when i execute this arbitrary code?
@@ -137,33 +142,28 @@
             </section>
             <section><img src="real-programmers-cropped.png">
                  <aside class="notes">
-                    why did we use emacs?
-                    easier to use the same ide when you're pairing
-                    for a short project, felt like it would be cheaper to deal with everyone learning one ide
-                    rather than each picking their favourite!
-                    evil mode helped our vi user
-                    although made pairing trickier!
-                    not too bad to start with
-                    if you don't know the language it doesn't matter if you don't know the shortcuts!
-                    missed having an ide for small refactors and renames
-                    still struggled with emacs by the end
-                    by halfway felt like it wasn't actively blocking me getting things done
-                    but also didn't feel like it was helping
-                    i think if you want to get moving quickly with clojure, emacs at the same time maybe isn't the win
-                    apparently cursive plugin for intellij is good
-                </aside>
+                     4 of us on the team, mostly pair programming
+                     1 had used emacs, 1 vi, 2 of us neither
+                     easier to use the same ide when you're pairing?
+                     emacs has evil mode for our vi user
+                     2 of us would have to learn something new anyway
+                     although i’ve recently been hearing good things about cursive plugin for intellij
+                     so decided to use emacs
+                     much steeper learning curve than clojure
+                     still struggled with it by the end
+                     missed having an ide for small refactors and renames
+                     by halfway felt like it wasn't actively blocking me getting things done
+                     but also didn't feel like it was helping
+                 </aside>
             </section>
             <section data-background="emacs-cheatsheet.png">
                  <aside class="notes">
-                    if you are going to use emacs...
-                    there are many cheatsheets
-                    these are much more complicated than the clojure cheatsheets!
-                    emacs live was initially good
-                    but the shortcuts were different
-                    and it didn't play that well with midje tests
-                    magit is awesome
-                    sometimes i still use this for complex git merges
-                </aside>
+                     there are many cheatsheets
+                     whereas clojure has just one
+                     much more complicated than the clojure cheatsheets!
+                     and does not fit on one page!
+                     i think if you want to get moving quickly with clojure, emacs at the same time maybe isn't the win
+                 </aside>
             </section>
             <section>
                 <h2>how was it using clojure for the first time?</h2>
@@ -178,12 +178,11 @@
             <section>
                 <h1>reloaded workflow</h1>
                  <aside class="notes">
-                    Cider = clojure repl and ide for emacs
-                    built on nrepl
-                    lets you connect to a running app
-                    and dynamically redefine parts of it
-                    used stuart sierra's reloaded flow
-                </aside>
+                     as well as cider we used stuart sierra's reloaded flow
+                     this allows you to make a change to your source code, call (reset) in the repl, and see the change in your running app
+                     it uses clojure.tools.namespace to work out which source files have changed
+                     refreshes these in the running dev env
+                 </aside>
             </section>
             <section>
                 <pre><code class="clojure" data-trim>
@@ -201,28 +200,26 @@
   (repl/refresh :after 'user/go))
                 </code></pre>
                  <aside class="notes">
-                    uses clojure.tools.namespace to work out which source files have changed
-                    refreshes these in the running dev env
-                    you have to define the reset function in user.clj
-                    loaded by default when you start the repl
-                    stops the running app
-                    reloads changed namespaces
-                    creates and starts the app again
-                    all within the same jvm
-                    so super fast
-                    which means super fast feedback - just call reset from repl
-                    have to define a dev profile in your leingingen config
-                    so the user.clj file is only used in dev
-                    not deployed in the jar
-                    this dramatically improved our dev experience
-                    took us a while to get it working
-                    you have to have no global state - so you can stop and start up without problems
-                    and have to pass things that might otherwise be global, e.g. db connections, thread pool as params
-                    didn't work so well with the frontend stuff
-                    used enlive for templating
-                    when html files changed on disk this was not picked up
-                    will talk more about this later
-                </aside>
+                     so you define a reset function in user.clj
+                     this is loaded by default when you start the repl
+                     stops the running app
+                     reloads changed namespaces
+                     creates and starts the app again
+                     all within the same jvm
+                     so super fast
+                     the other great thing about this, that you can’t really see from this example - is that we actually ended up with about 5 different web services that we were running at once.
+                     The reloaded workflow meant that we could make a change to a bit of code that was used by more than one of the services, and by calling refresh, both would pick up the changes straightaway.
+                     definitely recommend getting this working as soon as possible, we left it quite late
+                     you just define a dev profile in your leingingen config
+                     so the user.clj file is only used in dev
+                     not deployed in the jar
+                     and be careful about any global state in your application, because you want to be able to stop and start back up again easily
+                     the only thing that was not so awesome with this, and we’ll talk more about this later
+                     is when we wanted to change something on the ui
+                     we used enlive for templating, and had jade files that produced html
+                     when a jade or html file changed on disk it was not picked up by the reloaded flow
+                     this was the only limitation we found
+                 </aside>
             </section>
             <section>
                 <h1>kerodon</h1>
@@ -277,33 +274,64 @@
             </section>
             <section>
                 <h1>adding orchestration</h1>
+                <aside class="notes">
+                    One thing we wanted was to try out a few different architectures and see what worked best
+                </aside>
             </section>
             <section>
               <img src="simple-auth-no-ua.png">
+                <aside class="notes">
+                    We started with just a service and an identity provider and explored this flow
+                    So here the user would be redirected from the service directly to the identity provider
+                    they would log in at the identity provider
+                    then be redirected back to the service with their identity assured
+                    this is by far the simplest flow
+                    however it doesn’t scale that well
+                    what if i want to use my login with the identity provider to access another government service?
+                    or what if, like in gov uk verify, i want to have the choice between different identity providers?
+                </aside>
             </section>
             <section>
               <img src="auth-with-hub-no-ua.png">
               <aside class="notes">
-                Advantages
-                work with multiple services
-                work with multiple idps
-                only need to change the hub in the middle
-                layer of privacy in the middle
-                the service doesn't need to know which idp is being used
-                idp doesn't need to know which service is being used
-                how gov uk verify works
-                hub doesn't store any data
-                just passes data around
-                with ring and compojure easy to add a new web service
-                http req and resp just maps
-                to the service the hub looks like an idp
-                to the idp the hub looks like a service
+                  Adding a hub in the middle brings this flexibility
+                  work with multiple services
+                  work with multiple idps
+                  only need to change the hub in the middle
+                  also a layer of privacy in the middle
+                  the service doesn't need to know which idp is being used
+                  idp doesn't need to know which service is being used
+                  to the service the hub looks like an idp
+                  to the idp the hub looks like a service
+                  how gov uk verify works
+                  hub doesn't store any data
+                  just passes data around
+                  with ring and compojure it was easy to add another web service
+                  and easy to develop as we had the reloaded flow
+                  and easy to test because of our kerodon tests
               </aside>
             </section>
-            <section><img src="arch-1.png"> </section>
-            <section><img src="arch-2.png"> </section>
-            <section><img src="arch-3.png"> </section>
-            <section><img src="arch-4.png"> </section>
+            <section><img src="arch-1.png">
+                <aside class="notes">
+                    Started with just 2 services - candela, the service
+                    michie, the identity provider
+                </aside>
+            </section>
+            <section><img src="arch-2.png">
+                <aside class="notes">
+                    then added in knox, the orchestration hub
+                </aside>
+            </section>
+            <section><img src="arch-3.png">
+                <aside class="notes">
+                    then added in wheatstone, who would store the relationships between organisations and agents
+                </aside>
+            </section>
+            <section><img src="arch-4.png">
+                <aside class="notes">
+                    then finally added in al-kindi, who would provide information about organisations.
+                </aside>
+            </section>
         </section>
 
         <section>
@@ -313,7 +341,16 @@
         <section>
             <section>
               <h1>was it a success?</h1>
-                <h2>what is happening now?</h2>
+              <h2>what is happening now?</h2>
+                <aside class="notes">
+                    Successful alpha in that we learnt a lot about the problem domain
+                    didn't implement everything
+                    but have good understanding of how the system could work
+                    and different options of how it could be built
+                    could see what would require further technical exploration
+                    with the kerodon tests we have an expressive technical artifact
+                    However, GDS are not building a beta
+                </aside>
             </section>
           <section>
                      <h1>Can we build something that people would want to use?</h1>
@@ -325,22 +362,14 @@
                     In particular, that investment might be premature if the team learns they are not solving the right problem.&rdquo;
                 </blockquote>
                  <aside class="notes">
-                   Achieved technical aim
-                    didn't implement everything
-                    good understanding of how the system could work
-                    different options of how it could be built
-                    could see what would require further technical exploration
-                    kerodon tests expressive enough to be part of the technical artifact of the alpha
-                    not perfect code but that wasn't the aim
-                    needs for org ida not the same across services
-                    doesn't make sense for gds to build a govt wide thing
-                    some services need fine grained perms, others don't
-                    some services already have relationships established
-                    if you’re the headmaster of hogwarts and have been registering
-                        wands for ten years with the ministry of magic you don't want
-                        to suddenly prove that you have the authority to do so
-                    already commercial solutions available
-                </aside>
+                     We found that the needs for organisation identity assurance are not the same across services
+                     for example, ???
+                     doesn't make sense for gds to build a govt wide thing
+                     some services need fine grained perms, others don't
+                     for example, in the wands service i can delegate to someone else the ability to register wands, but not to claim back any tax on the wands if they’ve been bought overseas. (is this a realistic example?)
+                     Also we found through user research that some services already have relationships established
+                     if you’re the headmaster of hogwarts and have been registering wands for ten years with the ministry of magic you don't want to suddenly prove that you have the authority to do so
+                 </aside>
             </section>
             <section data-background="ida-for-orgs-blog-screenshot.png"></section>
             <section><a href="https://identityassurance.blog.gov.uk/2014/10/20/identity-assurance-for-organisations-and-agents/">https://identityassurance.blog.gov.uk/2014/10/20/identity-assurance-for-organisations-and-agents/</a></section>
@@ -349,13 +378,14 @@
         <section>
             <h2>would we use clojure for a similar project?</h2>
              <aside class="notes">
-                With a similar team, yes
-                probably even if the team had no experience in clojure
-                it is quick to pick up
-                this has shown it's good for prototyping
-                good precedent set at gds
-                Other TW prototypes have since been built in clojure
-            </aside>
+                 With a similar team, yes
+                 probably even if the team had no experience in clojure
+                 it is quick to pick up
+                 this alpha set a very good precedent for using clojure at gds
+                 Other TW prototypes have since been built in clojure
+                 with non-clojure devs on the team
+                 so it’s definitely the language we would choose for building prototypes where you need to evolve quickly
+             </aside>
         </section>
       <section>
         <h2>Links</h2>
