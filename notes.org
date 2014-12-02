@@ -263,7 +263,7 @@ We built our prototype in Clojure -- hence this talk.
     - for example, ???
     - doesn't make sense for gds to build a govt wide thing
     - some services need fine grained perms, others don't
-    - for example, in the wands service i can delegate to someone else the ability to register wands, but not to claim back any tax on the wands if they’ve been bought overseas. (is this a realistic example?)
+    - for example, in the wands service I can simply register wands, whereas in other services, for example an HMRC service to pay tax on behalf of my organisation, there may be some taxes I can pay, some I don’t have the authority to pay.
     - Also we found through user research that some services already have relationships established
     - if you’re the headmaster of hogwarts and have been registering wands for ten years with the ministry of magic you don't want to suddenly prove that you have the authority to do so
 
