@@ -131,13 +131,13 @@
             <section>
                 <pre><code class="clojure" data-trim>
 (defn say-hello [request]
-    (let [name (get-in request [:query-params "name"])]
-                (build-html name))
+  (let [name (get-in request [:query-params "name"])]
+    (build-html name))
 
 (defn app-routes [config]
-    (handler/site
-        (routes ( GET "/hello-world" [:as request]
-                    (say-hello request)))))
+  (handler/site
+    (routes (GET "/hello-world" [:as request]
+              (say-hello request)))))
                 </code></pre>
                  <aside class="notes">
                      Found clojure really easy to pick up
