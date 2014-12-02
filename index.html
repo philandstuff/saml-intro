@@ -99,9 +99,55 @@
             <h1>Introduction to web auth</h1>
             <h2>eg OAuth, SAML, OpenID Connect</h2>
           </section>
-          <section><img src="simple-auth.png"></section>
-          <section><img src="auth-with-hub.png"></section>
-          <section><img src="auth-with-hub-no-ua.png"></section>
+          <section data-transition="fade">
+            <h3>User requests to use service</h3>
+            <img src="rp-idp-1.png">
+          </section>
+          <section data-transition="fade">
+            <h3>Service redirects user to IdP with authentication request</h3>
+            <img src="rp-idp-2.png">
+          </section>
+          <section data-transition="fade">
+            <h3>User authenticates with IdP</h3>
+            <img src="rp-idp-3.png">
+          </section>
+          <section data-transition="fade">
+            <h3>IdP redirects user to service with signed response</h3>
+            <img src="rp-idp-4.png">
+          </section>
+        </section>
+        <section>
+          <section>
+            <h1>Web auth with hub</h1>
+          </section>
+          <section data-transition="fade">
+            <h3>User requests to use service</h3>
+            <img src="hub-1.png">
+          </section>
+          <section data-transition="fade">
+            <h3>Service redirects user to Identity Hub Service with authentication request</h3>
+            <img src="hub-2.png">
+          </section>
+          <section data-transition="fade">
+            <h3>User selects IdP</h3>
+            <img src="hub-3.png">
+          </section>
+          <section data-transition="fade">
+            <h3>Hub redirects user to selected IdP with authentication request</h3>
+            <img src="hub-4.png">
+          </section>
+          <section data-transition="fade">
+            <h3>User authenticates with IdP</h3>
+            <img src="hub-5.png">
+          </section>
+          <section data-transition="fade">
+            <h3>IdP redirects user back to hub with signed response</h3>
+            <img src="hub-6.png">
+          </section>
+          <section data-transition="fade">
+            <h3>Hub redirects user back to service with signed response</h3>
+            <img src="hub-7.png">
+          </section>
         </section>
         <section>
           <h1>Technical questions</h1>
@@ -371,7 +417,20 @@
         </section>
 
         <section>
+          <section>
             <h2>what didn't go so well?</h2>
+          </section>
+          <section>
+            <h2>enlive</h2>
+            <ul>
+              <li>Using static HTML prototype for templates
+              <li>Auto-reloading
+                <a href="https://github.com/cgrand/enlive/issues/6">https://github.com/cgrand/enlive/issues/6</a>
+            </ul>
+          </section>
+          <section>
+            <h2>stubbing</h2>
+          </section>
         </section>
 
         <section>
