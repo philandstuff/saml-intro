@@ -196,14 +196,14 @@
             </section>
             <section>
                 <pre><code class="clojure" data-trim>
-(defn say-hello [request]
-  (let [name (get-in request [:query-params "name"])]
-    (build-html name))
-
 (defn app-routes [config]
   (handler/site
-    (routes (GET "/hello-world" [:as request]
-              (say-hello request)))))
+    (routes
+      (GET "/hello/:name" [name :as request]
+        (fail-> request
+               (re/validate! :headers-contain "mock_authorization")
+               (resp/get-header "mock_authorization")
+               (say-hello name config))))))
                 </code></pre>
                  <aside class="notes">
                      Found clojure really easy to pick up
@@ -333,7 +333,7 @@
                             (alter-var-root #'wheatstone
                                 (constantly (jetty/run-jetty (wweb/app config))))
                             (alter-var-root #'al-kindi
-                                (constantly (jetty/run-jetty (aweb/app config)))))
+                                 (constantly (jetty/run-jetty (aweb/app config)))))
                 </code> </pre>
             </section>
             <section>
