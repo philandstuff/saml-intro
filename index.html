@@ -198,7 +198,7 @@
                 <ul>
                     <li>Easy to pick up</li>
                     <li>Concise</li>
-                    <li>You don't end up with much code</li>
+                    <li>Not much code!</li>
                 </ul>
                 <aside class="notes">
                     Found clojure really easy to pick up
@@ -310,10 +310,6 @@
                      the other great thing about this, that you can’t really see from this example - is that we actually ended up with about 5 different web services that we were running at once.
                      The reloaded workflow meant that we could make a change to a bit of code that was used by more than one of the services, and by calling refresh, both would pick up the changes straightaway.
                      definitely recommend getting this working as soon as possible, we left it quite late
-                     you just define a dev profile in your leingingen config
-                     so the user.clj file is only used in dev
-                     not deployed in the jar
-                     and be careful about any global state in your application, because you want to be able to stop and start back up again easily
                      the only thing that was not so awesome with this, and we’ll talk more about this later
                      is when we wanted to change something on the ui
                      we used enlive for templating, and had jade files that produced html
@@ -427,7 +423,7 @@
                   just passes data around
                   with ring and compojure it was easy to add another web service
                   and easy to develop as we had the reloaded flow
-                  and easy to test because of our kerodon tests
+                  and easy to test because of the combined handler pattern
               </aside>
             </section>
             <section>
