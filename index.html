@@ -318,21 +318,6 @@
                  </aside>
             </section>
             <section>
-                <pre><code class="clojure" data-trim>
-(defn go []
-  (alter-var-root #'candela
-    (constantly (jetty/run-jetty (cweb/app c-config))))
-  (alter-var-root #'knox
-    (constantly (jetty/run-jetty (kweb/app k-config))))
-  (alter-var-root #'michie
-    (constantly (jetty/run-jetty (mweb/app m-config))))
-  (alter-var-root #'wheatstone
-    (constantly (jetty/run-jetty (wweb/app w-config))))
-  (alter-var-root #'al-kindi
-    (constantly (jetty/run-jetty (aweb/app a-config)))))
-                </code> </pre>
-            </section>
-            <section>
                 <h1>kerodon</h1>
             </section>
             <section>
